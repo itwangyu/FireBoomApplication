@@ -5,16 +5,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
+    tools:context=".MainActivity1"
     tools:showIn="@layout/app_bar_main">
 
+    <ImageView
+        android:id="@+id/banner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#765"
+        app:layout_constraintDimensionRatio="H,16:6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#678"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/banner" />
+
     <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:text="马云:一年交税170多亿马云:一年交税170多亿马云:一年交税170多亿"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivIcon"
+        app:layout_constraintTop_toTopOf="@id/ivIcon"
+        app:layout_constraintBottom_toTopOf="@id/tvTime"/>
+
+    <TextView
+        android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="8分钟前"
+        app:layout_constraintBottom_toBottomOf="@id/ivIcon"
+        app:layout_constraintStart_toStartOf="@id/tvTitle" />
+
+
+    <TextView
+        android:id="@+id/tvTab1"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="tab1"
+        android:gravity="center"
+        android:background="#789"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintRight_toLeftOf="@id/tvTab2"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintHorizontal_chainStyle="spread"/>
+    <TextView
+        android:id="@+id/tvTab2"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="tab2"
+        android:gravity="center"
+        android:background="#789"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tvTab1"
+        app:layout_constraintRight_toLeftOf="@id/tvTab3"/>
+    <TextView
+        android:id="@+id/tvTab3"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="tab3"
+        android:gravity="center"
+        android:background="#789"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/tvTab2"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintRight_toRightOf="parent"/>
 </android.support.constraint.ConstraintLayout>
