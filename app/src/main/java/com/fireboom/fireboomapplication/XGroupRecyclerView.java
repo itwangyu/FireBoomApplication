@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.util.SparseArray;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,9 +21,10 @@ public abstract class XGroupRecyclerView<A, E, T extends IXGroupRecyclerViewItem
     private AdapterWrapper mXRecycleViewAdapter;
     private final int VALUE_INT_GROUP_NAME_TYPE = 0X11;
     private List<T> mDataList = new ArrayList<>();
-    private SparseArray<A> mGroupInfo = new SparseArray<>();
+    private SparseArray<Integer> mGroupInfo = new SparseArray<>();
     private SparseArray<E> mItemInfo = new SparseArray<>();
     private int mCount = 0;
+    private SparseBooleanArray mBooleanMap = new SparseBooleanArray();
 
     public XGroupRecyclerView(Context context) {
         super(context);
@@ -54,20 +56,22 @@ public abstract class XGroupRecyclerView<A, E, T extends IXGroupRecyclerViewItem
         if (null == listItem)
             return;
         this.mDataList = listItem;
-        orderData(true);
+        orderData();
         mXRecycleViewAdapter.notifyDataSetChanged();
     }
 
-    private void orderData(boolean isInit) {
+    private void orderData() {
         mGroupInfo.clear();
         mItemInfo.clear();
         mCount = 0;
         for (int i = 0; i < this.mDataList.size(); i++) {
-            mGroupInfo.put(mCount, mDataList.get(i).getGroupName());
+            mGroupInfo.put(mCount,i);
             mCount++;
-            for (int j = 0; j < mDataList.get(i).getGroupList().size(); j++) {
-                mItemInfo.put(mCount, mDataList.get(i).getGroupList().get(j));
-                mCount++;
+            if (mBooleanMap.get(i, true)) {
+                for (int j = 0; j < mDataList.get(i).getGroupList().size(); j++) {
+                    mItemInfo.put(mCount, mDataList.get(i).getGroupList().get(j));
+                    mCount++;
+                }
             }
 
         }
@@ -94,14 +98,16 @@ public abstract class XGroupRecyclerView<A, E, T extends IXGroupRecyclerViewItem
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
             if (mGroupInfo.get(position) != null) {
-//                holder.itemView.setOnClickListener(new OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        orderData(false);
-//                        mXRecycleViewAdapter.notifyDataSetChanged();
-//                    }
-//                });
-                adapterOnBindGroupHeadViewHolder(holder, position, mGroupInfo.get(position));
+                holder.itemView.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean status = mBooleanMap.get(mGroupInfo.get(position), true);
+                        mBooleanMap.put(mGroupInfo.get(position), !status);
+                        orderData();
+                        mXRecycleViewAdapter.notifyDataSetChanged();
+                    }
+                });
+                adapterOnBindGroupHeadViewHolder(holder, position,mDataList.get(mGroupInfo.get(position)).getGroupName());
             } else {
                 adapterOnBindViewHolder(holder, position, mItemInfo.get(position));
             }
