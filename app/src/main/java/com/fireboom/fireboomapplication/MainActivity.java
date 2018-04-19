@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         TestRecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<TestItemData> dataList = new ArrayList<>();
-        for (int i=0;i<20;i++) {
+        for (int i=0;i<30;i++) {
             TestItemData itemData = new TestItemData();
             itemData.setGroupName("组名"+i);
             ArrayList<String> list = new ArrayList<>();
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tv2 = new TextView(this);
         tv2.setText("我来组成尾巴");
         recyclerView.addHeader(tv1);
-        recyclerView.addFooter(tv2);
+//        recyclerView.addFooter(tv2);
+        recyclerView.setSpreadEnable(true);
     }
 }

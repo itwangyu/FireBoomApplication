@@ -49,6 +49,9 @@ class AdapterWrapper(private val mOriginAdapter: RecyclerView.Adapter<RecyclerVi
     private fun isFooterPos(pos: Int) = pos >= headers.size() + mOriginAdapter.itemCount
     fun addHeader(view: View) = headers.put(VALUE_INT_HEAD_TYPE + headers.size(), view)
     fun addFooter(view: View) = footers.put(VALUE_INT_FOOT_TYPE + footers.size(), view)
+
+    fun getHeaderSize()=headers.size()
+    fun getFooterSize()=footers.size()
 }
 
 class HeadViewHolder(view: View) : RecyclerView.ViewHolder(view)
